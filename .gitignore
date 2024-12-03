@@ -25,7 +25,6 @@ logs
 node_modules/
 components/ComparePlans.vue
 components/Login.vue
-components/mavbar.vue
 components/Reklam.vue
 components/Slider.vue
 components/topMenu.vue
