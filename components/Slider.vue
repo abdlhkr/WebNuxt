@@ -1,6 +1,6 @@
 <template>
     <div class="slider-controls"></div>
-    <div class="slider-container">
+    <div class="slider-container wid">
         <div class="slider">
             <div class="slides" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
                 <div class="slide" v-for="(slide, index) in slides" :key="index">
