@@ -9,11 +9,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
-  "dependencies": {
-    "bootstrap": "^5.3.3",
-    "nuxt": "^3.13.2",
-    "vue": "latest",
-    "vue-router": "latest",
-    "vuetify-nuxt-module": "^0.18.3"
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxt/ui": "^2.19.2",
+    "nuxt": "^3.14.1592"
   }
 }

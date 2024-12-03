@@ -23,3 +23,13 @@ logs
 .env.*
 !.env.example
 node_modules/
+components/Card.vue
+components/ComparePlans.vue
+components/Fltre.vue
+components/Footer.vue
+components/Login.vue
+components/mavbar.vue
+components/Reklam.vue
+components/Slider.vue
+components/topMenu.vue
+components/buttonSlider.vue

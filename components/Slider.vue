@@ -13,6 +13,14 @@
                     </div>
                 </div>
             </div>
+            <!-- Left Arrow -->
+            <button class="slider-arrow left" @click="prevSlide">
+                &#10094;
+            </button>
+            <!-- Right Arrow -->
+            <button class="slider-arrow right" @click="nextSlide">
+                &#10095;
+            </button>
         </div>
     </div>
 </template>
@@ -38,6 +46,12 @@ export default {
             setInterval(() => {
                 this.currentIndex = (this.currentIndex + 1) % this.slides.length;
             }, 3000); // Change slide every 3 seconds
+        },
+        prevSlide() {
+            this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+        },
+        nextSlide() {
+            this.currentIndex = (this.currentIndex + 1) % this.slides.length;
         },
     },
 };
@@ -85,5 +99,27 @@ export default {
     font-size: 14px;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 238, 238, 0.5);
+    border-radius: 55%;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
 }
 </style>
