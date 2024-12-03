@@ -23,7 +23,3 @@ logs
 .env.*
 !.env.example
 node_modules/
-components/Reklam.vue
-components/Slider.vue
-components/topMenu.vue
-components/buttonSlider.vue
