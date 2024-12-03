@@ -24,7 +24,6 @@ logs
 !.env.example
 node_modules/
 components/ComparePlans.vue
-components/Footer.vue
 components/Login.vue
 components/mavbar.vue
 components/Reklam.vue
