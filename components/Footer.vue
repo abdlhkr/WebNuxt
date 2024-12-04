@@ -91,6 +91,7 @@ export default {
 <style scoped>
 footer a {
   text-decoration: none;
+  font-size: 12px;
 }
 footer a:hover {
   text-decoration: underline;
@@ -102,7 +103,7 @@ footer a:hover {
   justify-content: center;
 }
 .bi {
-  font-size: 2rem;
+  font-size: 1rem;
   color: #000;
 }
 img{
