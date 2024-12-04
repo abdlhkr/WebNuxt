@@ -1,127 +1,114 @@
 <template>
-    <hr>
-    <v-footer padless>
-      <v-container class="space">
-        <v-row>
-          <!-- Kategoriler -->
-          <v-col cols="12" md="3">
-            <h3>Kategoriler</h3>
-            <v-list dense>
-              <v-list-item v-for="category in categories" :key="category">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <a href="#">{{ category }}</a>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-col>
-  
-          <!-- Popüler Markalar -->
-          <v-col cols="12" md="3">
-            <h3>Popüler Markalar</h3>
-            <v-list dense>
-              <v-list-item v-for="brand in popularBrands" :key="brand">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <a href="#">{{ brand }}</a>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-col>
-  
-          <!-- Popüler Aramalar -->
-          <v-col cols="12" md="3">
-            <h3>Popüler Aramalar</h3>
-            <v-list dense>
-              <v-list-item v-for="search in popularSearches" :key="search">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <a href="#">{{ search }}</a>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-col>
-  
-          <!-- Özel Sayfalar -->
-          <v-col cols="12" md="3">
-            <h3>Özel Sayfalar</h3>
-            <v-list dense>
-              <v-list-item v-for="page in specialPages" :key="page">
-                <v-list-item-content>
-                  <v-list-item-title>
-                    <a href="#">{{ page }}</a>
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-footer>
-  </template>
-  
-  <script setup>
-  const categories = [
-    "Bilgisayar", "Tablet", "Telefon", "Laptop",
-    "Kombi", "Klimalar", "Çamaşır Makinesi", "Bulaşık Makinesi",
-    "Gram Altın", "Reşat Altın", "Yarım Altın", "Ayçicek Yağları",
-    "Süpürgeler", "Robot Süpürge", "Airsoft", "Fritozler",
-    "Kitap", "Film"
-  ];
-  
-  const popularBrands = [
-    "Avon", "Samsung", "Adidas", "Nike", "Apple", "Vestel", 
-    "Bosch", "New Balance", "Defacto", "Lacoste", "Asus", 
-    "Lego", "Boyner", "Koton", "Fairy", "Mavi", "Under Armour", "Wasa"
-  ];
-  
-  const popularSearches = [
-    "Playstation 5", "Xbox Series X", "Xbox Series S", "Xbox One", 
-    "Nintendo", "Mi Band 8", "Bluetooth Kulaklık"
-  ];
-  
-  const specialPages = [
-    "Hepsiburada Sözü", "Premium", "Okul Alışverişi", "Black Friday", 
-    "Efsane Kasım", "Vergisiz Bilgisayar", "Vergisiz Telefon", 
-    "Sevgililer Günü", "Anneler Günü", "Yılbaşı Hediyeleri", "Babalar Günü",
-    "Kazandıran Çekiliş"
-  ];
-  </script>
-  
-  <style scoped>
-  .v-footer {
-    padding-top: 20px;
-    font-size: 12px; /* Tüm footer metinleri için font boyutunu 12px yapıyoruz */
-    height: 600px;
-    width: 100%;
-  }
-  .v-footer .v-list-item-title a {
-  font-size: 12px; /* Kategori ve marka isimlerinin font boyutunu 12px yapıyoruz */
+  <li></li>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
+  />
+  <footer class="py-4 custom-color">
+    <div class="container">
+      <div class="row text-start">
+        <!-- Kurumsal -->
+        <div class="col-md-3 mb-3">
+          <h5>Kurumsal</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" target="_blank" class="text-dark">Hakkımızda</a></li>
+            <li><a href="#" target="_blank" class="text-dark">İş Ortaklarımız</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Yatırımcı İlişkileri</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Müşteri Hizmetleri</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Kariyer</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Kişisel Verilerin Korunması</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Bilgi Güvenliği Politikası</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Güvenli Alışveriş Kılavuzu</a></li>
+            <li><a href="#" target="_blank" class="text-dark">İş Sağlığı ve Güvenliği Çevre Politikamız</a></li>
+            <li><a href="#" target="_blank" class="text-dark">İletişim</a></li>
+          </ul>
+        </div>
+
+        <!-- Hepsiburada -->
+        <div class="col-md-3 mb-3">
+          <h5>Hepsiburada</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" target="_blank" class="text-dark">Satıcı Olmak İstiyorum</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Hepsipay İş Yeri Olmak İstiyorum</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Tedarikçi Davranış Kuralları</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Girişimci Kadınlara Teknoloji Gücü</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Teslimat Noktası Olmak İstiyorum</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Ödeme Seçenekleri</a></li>
+            <li><a href="#" target="_blank" class="text-dark">Banka Kampanyaları</a></li>
+            <li><a href="#" target="_blank" class="text-dark">İşlem Rehberi</a></li>
+          </ul>
+        </div>
+
+        <!-- Bizi Takip Edin -->
+        <div class="col-md-3 mb-3">
+          <h5>Bizi Takip Edin</h5>
+          <ul class="list-unstyled d-flex gap-2 custom">
+            <li><a href="#" target="_blank"><i class="bi bi-instagram"> Instagram</i></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-youtube">Youtube</i></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-facebook">Facebook</i></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-twitter">Twitter</i></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-linkedin">Lınkedin</i></a></li>
+          </ul>
+        </div>
+
+        <!-- Mobil Uygulamalar -->
+        <div class="col-md-3 mb-3">
+          <h5>Mobil Uygulamalar</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageStore.png" alt=""></a></li>
+            <li><a href="#" target="_blank" class="text-dark"><a href="https://play.google.com/store" target="_blank">
+  <img 
+    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+    alt="Google Play" 
+    style="height: 40px;">
+</a></a></li>
+            <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageGalarry.png" alt=""></a></li>
+          </ul>
+          <div class="mt-4">
+            <h6>Aklınıza takılan bir soru mu var?</h6>
+            <p>
+              <a href="#" target="_blank" class="btn btn-primary btn-sm">Çözüm Merkezine Bağlanın</a><br />
+              veya<br />
+              <strong>0850 252 40 00</strong><br />
+              <a href="https://wa.me/1234567890" target="_blank" class="btn btn-success d-flex align-items-center gap-2">
+  <i class="bi bi-whatsapp"></i> WhatsApp Destek
+</a>
+
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script lang="ts">
+export default {
+  name: "Footer",
+};
+</script>
+
+<style scoped>
+footer a {
+  text-decoration: none;
 }
-  .v-footer a {
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .v-footer a:hover {
-    text-decoration: underline;
-  }
-  
-  .v-footer h3 {
-    font-size: 12px; /* Başlıkların font boyutunu biraz daha büyük tutabiliriz */
-    margin-bottom: 8px;
-  }
-  .space {
-    height: 1920px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-  }
-  hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  </style>
-  
+footer a:hover {
+  text-decoration: underline;
+}
+.custom {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+.bi {
+  font-size: 2rem;
+  color: #000;
+}
+img{
+  width: 100px;
+}
+.custom-color {
+  background-color: rgb(255, 242, 234);
+}
+</style>
