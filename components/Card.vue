@@ -135,7 +135,6 @@ v-container {
 
 .product-card:hover {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; /* Hover durumunda gölge */
-  transform: scale(1.01); /* Hover durumunda büyütme */
 }
 
 .v-img {

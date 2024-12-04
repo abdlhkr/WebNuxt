@@ -6,19 +6,22 @@
         :key="index"
         class="menu-item"
       >
-        <v-menu open-on-hover transition="scale-transition" offset-y max-width="200">
+        <v-menu
+          open-on-hover
+          transition="scale-transition"
+          offset-y
+          max-width="250"
+        >
           <template #activator="{ props }">
-            <!-- Ana Menü -->
             <span v-bind="props" class="menu-text">{{ menuItem.title }}</span>
           </template>
 
-          <!-- Alt Menü -->
           <v-list>
             <v-list-item
               v-for="(subItem, subIndex) in menuItem.subMenu"
               :key="subIndex"
             >
-              <!-- Bilgisayar/Tablet için alt menü kontrolü -->
+              <!-- Alt menü kontrolü -->
               <v-menu v-if="subItem.subMenu" open-on-hover offset-x>
                 <template #activator="{ props }">
                   <v-list-item-title v-bind="props">{{ subItem.title }}</v-list-item-title>
@@ -103,10 +106,9 @@ const menuItems = ref([
 <style scoped>
 .menu-item {
   position: relative;
-  padding: 8px 16px;
+  padding: 16px;
   cursor: pointer;
   text-align: center;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
