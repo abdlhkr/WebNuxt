@@ -56,12 +56,12 @@
           <h5>Mobil Uygulamalar</h5>
           <ul class="list-unstyled">
             <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageStore.png" alt=""></a></li>
-            <li><a href="#" target="_blank" class="text-dark"><a href="https://play.google.com/store" target="_blank">
-  <img 
-    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
-    alt="Google Play" 
-    style="height: 40px;">
-</a></a></li>
+            <li><a href="https://play.google.com/store" target="_blank" class="text-dark">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
+                alt="Google Play" 
+                style="height: 40px;">
+            </a></li>
             <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageGalarry.png" alt=""></a></li>
           </ul>
           <div class="mt-4">
@@ -71,9 +71,8 @@
               veya<br />
               <strong>0850 252 40 00</strong><br />
               <a href="https://wa.me/1234567890" target="_blank" class="btn btn-success d-flex align-items-center gap-2">
-  <i class="bi bi-whatsapp"></i> WhatsApp Destek
-</a>
-
+                <i class="bi bi-whatsapp"></i> WhatsApp Destek
+              </a>
             </p>
           </div>
         </div>
@@ -106,8 +105,9 @@ footer a:hover {
   font-size: 1rem;
   color: #000;
 }
-img{
-  width: 100px;
+img {
+  max-width: 100px;
+  height: auto;
 }
 .custom-color {
   background-color: rgb(255, 242, 234);

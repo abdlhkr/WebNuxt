@@ -31,6 +31,7 @@ import Login from './components/Login.vue';
 import Sepet from './components/Sepet.vue';
 import Fltre from './components/Fltre.vue';
 import ComparePlans from './components/ComparePlans.vue';
+import uyeOl from './components/uyeOl.vue';
 export default {
   name: 'App',
   components: {
@@ -41,6 +42,7 @@ export default {
     Slider,
     Footer,
     Login,
+    uyeOl,
     Sepet,
     Fltre,
     ComparePlans,
@@ -57,6 +59,7 @@ export default {
         { name: 'Login', label: 'Login' },
         { name: 'Sepet', label: 'Sepet' },
         { name: 'Fltre', label: 'Fltre' },
+        { name: 'uyeOl', label: 'Üye Ol' },
         { name: 'ComparePlans', label: 'Compare Plans' },
       ],
       activeComponent: null, // Başlangıçta hiçbir bileşen seçili değil

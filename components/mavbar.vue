@@ -1,14 +1,16 @@
 <template>
     <v-app>
-      <v-app-bar app>
-        <!-- Logo -->
+      <v-app-bar app class="custom">
+        <!-- prime üyelik al sayfasına yönlendirecek-->
+      
         <v-img
           src="public/Logo/image copy.png"
           alt="Logo"
+          
           class="mr-4"
           max-width="400"
         />
-  
+     
         <!-- Arama Kısmı -->
         <v-text-field
           v-model="searchQuery"
@@ -25,38 +27,22 @@
   
         <!-- Konum ve Konum Yazısı Butonu -->
         <div class="buttons">
-          <v-btn
-            text
-            @click="handleLocationClick"
-            class="location-btn"
-          >
-            <v-icon left>mdi-map-marker</v-icon> <!-- Konum ikonu -->
-            <span class="location-text">{{ location }}</span> <!-- Konum metni -->
-          </v-btn>
+          <a href="#"><img src="public/parts/konum.png" alt=""></a>
   
           <!-- Profil İkonu ve Giriş Yap Butonu -->
-          <v-btn
-            text
-            @click="handleLoginClick"
-            class="ml-4 button-bg"
-          >
-            <v-icon left>mdi-account</v-icon> <!-- Profil ikonu -->
-            Giriş Yap
-          </v-btn>
-  
+        
+          <!-- Giriş Butonu giriş sayfasına yönlendirecek-->
+           <a href="#"> <img src="public/parts/giris.png" alt=""></a>
+   
           <!-- Sepet Butonu -->
-          <v-btn
-            icon
-            @click="handleCartClick"
-            class="button-bg"
-          >
-            <v-icon>mdi-cart</v-icon>
-          </v-btn>
+            <a href="#"><img src="public/parts/sepetim.png" alt=""></a>
         </div>
       </v-app-bar>
     </v-app>
     <!-- Alt Çizgi -->
-    <div class="bottom-line"></div>
+    <div class="bottom-line">
+      <img src="public/parts/line.png" alt="">
+    </div>
   </template>
   
   <script setup>
@@ -126,13 +112,16 @@
   }
   
   /* Konum butonunun ve konum yazısının bir arada hizalanması */
-  .location-btn {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    padding: 5px 15px;
-    display: flex;
-    align-items: center;
-  }
+  .bottom-line {
+  height: 10px;
+  background: linear-gradient(to right, orange, blue, purple, green, purple);
+  width: 100%;
+  position: relative;
+  top: 90px; /* Navbar yüksekliği kadar yukarı taşır */
+  z-index: 1; /* Navbar ile karışmaması için */
+}
+
+
   
   .location-text {
     font-size: 16px;
@@ -147,12 +136,17 @@
   /* Alt çizgi için stil */
   .bottom-line {
     height: 10px;
-    background: linear-gradient(to right, orange, blue, purple, green, purple);
     width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
     z-index: 0;
+  }
+  .custom{
+    background-color: #ffffff;
+    display: block;
+
+
   }
   </style>
   

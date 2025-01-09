@@ -1,18 +1,25 @@
+// nuxt.config.ts
+import { defineNuxtConfig } from 'nuxt/config'
 
-import { vuetifyConfiguration } from "virtual:vuetify-configuration"
-import vuetify from 'vite-plugin-vuetify'
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
+  compatibilityDate: '2025-01-03',
   devtools: { enabled: false },
-  modules: ['vuetify-nuxt-module'],
+  modules: [
+    "@nuxt/ui",    // önce @nuxt/ui
+    'vuetify-nuxt-module',  // sonra @nuxtjs/tailwindcss
+  ],
   css: [
-    'bootstrap/dist/css/bootstrap.min.css' // Bootstrap CSS'i ekler
+    'bootstrap/dist/css/bootstrap.min.css', // Bootstrap CSS'i ekler
+    'vuetify/styles', // Vuetify stillerini ekler
   ],
   build: {
-    transpile: ['bootstrap'] // JavaScript bileşenleri için
-  }
+    transpile: ['bootstrap','@nuxt/typescript-build'], // JavaScript bileşenleri için
+    
+  },
+  typescript: {
+    shim: false, // TypeScript hata ayıklama desteğini açın
+  },
+  plugins: [
+    { src: 'plugins/firebaseAuth.js', mode: 'client', ssr: false }, // firebaseAuth plugin'ini burada tanımlıyoruz
+  ],
 })
-css: [
-  'vuetify/styles'
-]
