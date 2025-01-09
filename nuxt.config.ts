@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/ui",    // önce @nuxt/ui
     'vuetify-nuxt-module',  // sonra @nuxtjs/tailwindcss
+    '@pinia/nuxt', // Pinia'yı ekleyin
   ],
   css: [
     'bootstrap/dist/css/bootstrap.min.css', // Bootstrap CSS'i ekler

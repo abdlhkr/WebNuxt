@@ -1,8 +1,6 @@
 <template>
   <v-container>
-    <v-row
-    class="d-flex justify-center align-center"
-    :style="{ padding: '20px' }">
+    <v-row class="d-flex justify-between align-center" :style="{ padding: '20px' }">
       <!-- Ürünler Dizisini Döngüyle Göster -->
       <v-col v-for="(product, index) in products" :key="index" cols="6" sm="4" md="2">
         <v-card
@@ -30,7 +28,6 @@
                 ★
               </span>
             </span>
-            <span class="font-weight-bold">{{ product.ratingCount }}</span>
           </v-card-subtitle>
 
           <!-- Ürün Fiyatı -->
@@ -44,6 +41,7 @@
               v-if="hovered[index]"
               type="button"
               class="btn btn-danger w-100 hover-button custom-button"
+              @click="addToCart(product)"
             >
               Sepete Ekle
             </button>
@@ -56,9 +54,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useCartStore } from '@/store/cart'; // Pinia Store'u kullanma
+
+const cartStore = useCartStore();  // Pinia Store'u kullanma
 
 // Ürün Tipini Tanımlıyoruz
 interface Product {
+  id: number;
   name: string;
   price: number;
   rating: number;  // Yıldız sayısı
@@ -70,6 +72,16 @@ interface Product {
 // Ürünler Dizisi
 const products = ref<Product[]>([
   {
+    id: 1,
+    name: "Fenerbahçe Yüzüncü Yıl Forması",
+    price: 9999.9,
+    rating: 5,
+    ratingCount: 72,
+    image: "productImages/last_image.png",
+    hoverImage: "productImages/last_image_2.png", // İkinci resim
+  },
+  {
+    id: 2,
     name: "Ipad Pro",
     price: 21000,
     rating: 4,
@@ -78,6 +90,7 @@ const products = ref<Product[]>([
     hoverImage: "productImages/product3_2.png", // İkinci resim
   },
   {
+    id: 3,
     name: "Samsung Tab 14",
     price: 16000,
     rating: 5,
@@ -86,6 +99,7 @@ const products = ref<Product[]>([
     hoverImage: "productImages/product2_2.png", // İkinci resim
   },
   {
+    id: 4,
     name: "Ipad Air",
     price: 200.0,
     rating: 3,
@@ -94,6 +108,7 @@ const products = ref<Product[]>([
     hoverImage: "productImages/product3_2.png", // İkinci resim
   },
   {
+    id: 5,
     name: "Logitech MX Keys",
     price: 3811.0,
     rating: 5,
@@ -101,40 +116,33 @@ const products = ref<Product[]>([
     image: "productImages/image.png",
     hoverImage: "productImages/hower.png", // İkinci resim
   },
-  {
-    name: "Fenerbahçe Yüzüncü Yıl Forması",
-    price: 0.0,
-    rating: 5,
-    ratingCount: 72,
-    image: "productImages/last_image.png",
-    hoverImage: "productImages/last_image_2.png", // İkinci resim
-  },
 ]);
 
 // Hover Durumunu İzlemek İçin Değişken
 const hovered = ref<boolean[]>(Array(products.value.length).fill(false)); // Hover durumu her ürün için
+
+// Sepete Ekleme Fonksiyonu
+const addToCart = (product: Product) => {
+  // Sepet store'una ekleme
+  cartStore.addProduct({ ...product, quantity: 1, selected: true });
+};
 </script>
 
 <style scoped>
 /* Kartı ve içeriklerini özelleştirmek için stil ekleyebilirsiniz */
-v-container {
-  padding: 20px;
-  width: 100%;
-  align-items: center;
-  justify-content: center
+.v-container {
+  width: 95%; 
+  max-width: 100%;
+  display: flex;
+  align-items: space;
 }
+
 .product-card {
-  margin-top: 20%;
-  box-shadow: rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
   border-radius: 10px;
   width: 100%;
   height: 398px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  border: 1px solid transparent;
-}
-
-.product-card:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; /* Hover durumunda gölge */
+  border: 10px;
 }
 
 .v-img {
@@ -145,6 +153,9 @@ v-container {
 .hover-button {
   transition: background-color 0.3s ease;
   opacity: 0;
+  height: 30px; /* Buton yüksekliğini azaltıyoruz */
+  font-size: 14px; /* Yazı fontunu küçültüyoruz */
+  line-height: 30px; /* Buton yüksekliğiyle uyumlu olmasını sağlıyoruz */
 }
 
 .product-card:hover .hover-button {
@@ -159,6 +170,8 @@ v-container {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
+  text-align: center; /* Yazının ortalanması */
+  padding: 0 10px; /* İç boşlukları azaltıyoruz */
 }
 
 .hover-button:hover {
@@ -180,11 +193,24 @@ v-container {
 }
 
 .star {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .star.filled {
-  color: rgb(230, 192, 4);
+  color: rgba(246,159,41,255)
 }
 
+.headline {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Flexbox düzeni ile kartlar arasındaki boşluğu ayarlıyoruz */
+.v-row {
+  display: flex;
+  justify-content: space-between; /* Kartlar arasında eşit boşluk bırak */
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+}
 </style>

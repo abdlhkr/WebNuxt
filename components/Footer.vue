@@ -43,27 +43,24 @@
         <div class="col-md-3 mb-3">
           <h5>Bizi Takip Edin</h5>
           <ul class="list-unstyled d-flex gap-2 custom">
-            <li><a href="#" target="_blank"><i class="bi bi-instagram"> Instagram</i></a></li>
-            <li><a href="#" target="_blank"><i class="bi bi-youtube">Youtube</i></a></li>
-            <li><a href="#" target="_blank"><i class="bi bi-facebook">Facebook</i></a></li>
-            <li><a href="#" target="_blank"><i class="bi bi-twitter">Twitter</i></a></li>
-            <li><a href="#" target="_blank"><i class="bi bi-linkedin">Lınkedin</i></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-instagram"></i> <span>Instagram</span></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-youtube"></i> <span>YouTube</span></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-facebook"></i> <span>Facebook</span></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-twitter"></i> <span>Twitter</span></a></li>
+            <li><a href="#" target="_blank"><i class="bi bi-linkedin"></i> <span>LinkedIn</span></a></li>
           </ul>
         </div>
 
-        <!-- Mobil Uygulamalar -->
-        <div class="col-md-3 mb-3">
-          <h5>Mobil Uygulamalar</h5>
-          <ul class="list-unstyled">
-            <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageStore.png" alt=""></a></li>
-            <li><a href="https://play.google.com/store" target="_blank" class="text-dark">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
-                alt="Google Play" 
-                style="height: 40px;">
-            </a></li>
-            <li><a href="#" target="_blank" class="text-dark"><img src="public/Logo/imageGalarry.png" alt=""></a></li>
-          </ul>
+        <!-- Mobil Uygulamalar ve Akılınıza Takılan Bir Soru Var Mı? -->
+        <div class="col-md-3 mb-3 d-flex justify-content-between">
+          <div>
+            <h5>Mobil Uygulamalar</h5>
+            <ul class="list-unstyled">
+              <li><img src="public/footer/app.store.png" alt="" class="resim"></li>
+              <li><img src="public/footer/playstore.png" alt="" class="resim"></li>
+              <li><img src="public/footer/app_galary.png" alt="" class="resim"></li>
+            </ul>
+          </div>
           <div class="mt-4">
             <h6>Aklınıza takılan bir soru mu var?</h6>
             <p>
@@ -88,10 +85,6 @@ export default {
 </script>
 
 <style scoped>
-footer a {
-  text-decoration: none;
-  font-size: 12px;
-}
 footer a:hover {
   text-decoration: underline;
 }
@@ -112,4 +105,75 @@ img {
 .custom-color {
   background-color: rgb(255, 242, 234);
 }
+footer a {
+  text-decoration: none;
+  font-size: 12px;
+  color: #000; /* Normal metin rengini belirleyin */
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer a span {
+  font-size: 1rem; /* Metin boyutunu normal yapın */
+  font-weight: normal; /* Yazı tipi kalınlık ayarı */
+  color: #000; /* Metin rengini belirleyin */
+  margin-left: 5px; /* İkon ile metin arasındaki mesafeyi ayarlayın */
+}
+
+.bi {
+  font-size: 1.5rem; /* İkon boyutunu ayarlayın */
+}
+footer .btn {
+  background-color: rgb(255, 242, 234); /* Sayfa arka planıyla aynı renk */
+  color: #000; /* Buton metni rengi */
+  border: none; /* Buton kenarlıklarını kaldır */
+}
+
+footer .btn:hover {
+  background-color: rgb(255, 242, 234); /* Hover durumunda da aynı renk */
+  color: #000; /* Hover metni rengi */
+}
+/* Başlık renk değişimi */
+footer h5, footer h6 {
+  font-size: 14px;
+  color: #ff6000; /* Başlık rengi */
+}
+
+/* Tüm başlıkların hizalanması */
+footer .col-md-3 h5, footer .col-md-3 h6 {
+  text-align: left; /* Başlıkların sola hizalanması */
+}
+/* Resimler arasındaki boşluğu azalt */
+footer .col-md-3.mb-3.d-flex.justify-content-between img {
+  margin-bottom: 0; /* Resimler arasındaki boşluğu sıfırlayın */
+  padding: 0; /* Resimler için ekstra padding'i kaldırın */
+}
+
+/* Mobil Uygulamalar ve Akılınıza Takılan Bir Soru Var arasında boşluğu azalt */
+footer .col-md-3.mb-3.d-flex.justify-content-between div {
+  margin-bottom: 0; /* Bu bölümdeki boşluğu sıfırlayın */
+  padding-bottom: 0; /* Padding'i sıfırlayın */
+}
+
+/* İçerikler arasında daha sıkı bir düzen sağlamak için */
+footer .col-md-3.mb-3.d-flex.justify-content-between {
+  gap: 15px; /* Aralarındaki boşluğu azalt */
+  align-items: flex-start; /* İçeriklerin üst hizalamaya odaklanmasını sağla */
+}
+
+/* Hedeflenen alanlarda daha sıkı düzenleme */
+footer .col-md-3.mb-3.d-flex.justify-content-between > div {
+  margin-bottom: 0;
+}
+
+/* Resimlerin boyutları ve hizalaması */
+footer .col-md-3.mb-3 img {
+  max-width: 80px; /* Resim boyutlarını küçült */
+  height: auto;
+  display: block;
+  margin-bottom: 0; /* Resimler arasındaki boşluğu sıfırla */
+}
+
 </style>

@@ -116,7 +116,7 @@ const menuItems = ref([
 
 .menu-text {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 12px;
   color: #333;
   transition: color 0.3s;
 }

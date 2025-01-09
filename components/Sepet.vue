@@ -1,4 +1,5 @@
 <template>
+  <div class="template">
     <div class="cart">
       <!-- Product List -->
       <div class="products">
@@ -31,7 +32,7 @@
   
       <!-- Summary -->
       <div class="summary">
-        <h3>Summary</h3>
+        <h3>Toplam</h3>
         <div class="summary-item" v-for="(product, index) in selectedProducts" :key="index">
           <span>{{ product.name }}</span>
           <span>{{ product.price * product.quantity }}₺</span>
@@ -40,6 +41,7 @@
         <button @click="completePurchase" class="btn btn-danger" style="background-color: rgb(255, 96, 0);">Alışverişi Tamamla</button>
       </div>
     </div>
+  </div>
   </template>
   
 <script lang="ts">
@@ -170,5 +172,37 @@ button {
 img {
   width: 100px;
   height: 150px;
+}
+.template {
+
+  margin-left: 5%;
+  width: 90%;
+}
+input[type="checkbox"] {
+  -webkit-appearance: none; /* Tarayıcı varsayılan stilini kaldırır */
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #FF6000; /* Turuncu renkli kenarlık */
+  border-radius: 3px; /* Hafif yuvarlatılmış köşeler */
+  background-color: white; /* Arka plan beyaz */
+  cursor: pointer;
+  position: relative;
+}
+
+/* Checkbox işaretlendiğinde */
+input[type="checkbox"]:checked {
+  background-color: #FF6000; /* Turuncu arka plan */
+  border-color: #FF6000; /* Turuncu kenarlık */
+}
+input[type="checkbox"]:checked::before {
+  content: '\2713'; /* Check işareti */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white; /* Check işareti rengi beyaz */
+  font-size: 14px;
 }
 </style>

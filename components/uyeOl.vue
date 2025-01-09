@@ -3,7 +3,9 @@
       <div class="login-form">
         <h1 class="logo">hepsiburada</h1>
         <div class="tab">
+          <RouterLink to="/Login">
           <span :class="{ active: isLogin }" @click="isLogin = true">Giriş yap</span>
+        </RouterLink>
           <span :class="{ active: !isLogin }" @click="isLogin = false">Üye ol</span>
         </div>
   
@@ -81,7 +83,7 @@
     }
     const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
     console.log('Üye olma başarılı:', userCredential.user);
-    router.push('/dashboard');
+    router.push('/');
   } catch (error) {
     console.error('Hata:', (error as Error).message);
     errorMessage.value = 'Bir hata oluştu, lütfen tekrar deneyin.';
