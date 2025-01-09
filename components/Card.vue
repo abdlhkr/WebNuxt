@@ -123,7 +123,7 @@ const hovered = ref<boolean[]>(Array(products.value.length).fill(false)); // Hov
 
 // Sepete Ekleme Fonksiyonu
 const addToCart = (product: Product) => {
-  // Sepet store'una ekleme
+  // Add product to cart with initial quantity 1 and selected state (optional)
   cartStore.addProduct({ ...product, quantity: 1, selected: true });
 };
 </script>

@@ -5,72 +5,70 @@
       <div class="products">
         <div
           class="product"
-          v-for="(product, index) in products"
-          :key="index"
+          v-for="(product, index) in cartStore.items"
+          :key="product.id"
         >
-          <!-- Checkbox -->
+          <!-- Checkbox (if you want to add selection logic) -->
           <input
             type="checkbox"
-            v-model="product.selected"
-            @change="updateTotal"
+            v-model="cartStore.items[index].selected"
+            @change="cartStore.updateTotal"
           />
           <img :src="product.image" alt="product" />
           <span>{{ product.name }}</span>
           <div class="quantity-controls">
-            <button @click="decreaseQuantity(index)">-</button>
+            <button @click="decreaseQuantity(product.id)">-</button>
             <input
               type="number"
               :value="product.quantity"
               min="1"
-              @input="updateQuantity($event, index)"
+              @input="updateQuantity($event, product.id)"
             />
-            <button @click="increaseQuantity(index)">+</button>
+            <button @click="increaseQuantity(product.id)">+</button>
           </div>
           <span>{{ product.price * product.quantity }}₺</span>
         </div>
       </div>
-  
+
       <!-- Summary -->
       <div class="summary">
         <h3>Toplam</h3>
-        <div class="summary-item" v-for="(product, index) in selectedProducts" :key="index">
+        <div
+          class="summary-item"
+          v-for="(product, index) in selectedProducts"
+          :key="index"
+        >
           <span>{{ product.name }}</span>
           <span>{{ product.price * product.quantity }}₺</span>
         </div>
         <p>Total: {{ total }}₺</p>
-        <button @click="completePurchase" class="btn btn-danger" style="background-color: rgb(255, 96, 0);">Alışverişi Tamamla</button>
+        <button
+          @click="completePurchase"
+          class="btn btn-danger"
+          style="background-color: rgb(255, 96, 0);"
+        >
+          Alışverişi Tamamla
+        </button>
       </div>
     </div>
   </div>
-  </template>
-  
-<script lang="ts">
-import { defineComponent, reactive, computed } from "vue";
+</template>
 
-interface Product {
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-  selected: boolean;
-}
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import { useCartStore } from "../store/cartStore";
 
 export default defineComponent({
   name: "Cart",
   setup() {
-    // Reactive product list
-    const products = reactive<Product[]>([
-      { name: "Ipad Air", price: 999, quantity: 1, image: "productImages/product1_1.png", selected: true },
-      { name: "Ipad Pro", price: 30, quantity: 1, image: "productImages/product2_1.png", selected: true },
-      { name: "Logitech Mx Keys", price: 16999, quantity: 1, image: "productImages/image.png", selected: true },
-    ]);
+    const cartStore = useCartStore(); // Pinia store'u kullanma
 
-    // Computed property for selected products
+    // Seçilen ürünlerin computed property olarak hesaplanması
     const selectedProducts = computed(() =>
-      products.filter((product) => product.selected)
+      cartStore.items.filter((product) => product.selected)
     );
 
-    // Computed property for total price
+    // Toplam fiyatın computed property olarak hesaplanması
     const total = computed(() =>
       selectedProducts.value.reduce(
         (sum, product) => sum + product.price * product.quantity,
@@ -78,47 +76,51 @@ export default defineComponent({
       )
     );
 
-    // Functions to manage quantities
-    const increaseQuantity = (index: number) => {
-      products[index].quantity++;
-    };
-
-    const decreaseQuantity = (index: number) => {
-      if (products[index].quantity > 1) {
-        products[index].quantity--;
+    // Miktar artırma fonksiyonu
+    const increaseQuantity = (productId: number) => {
+      const product = cartStore.items.find((item) => item.id === productId);
+      if (product) {
+        cartStore.updateQuantity(productId, product.quantity + 1);
       }
     };
 
-    const updateQuantity = (event: Event, index: number) => {
+    // Miktar azaltma fonksiyonu
+    const decreaseQuantity = (productId: number) => {
+      const product = cartStore.items.find((item) => item.id === productId);
+      if (product && product.quantity > 1) {
+        cartStore.updateQuantity(productId, product.quantity - 1);
+      }
+    };
+
+    // Miktarı manuel olarak güncelleme
+    const updateQuantity = (event: Event, productId: number) => {
       const value = (event.target as HTMLInputElement).valueAsNumber;
       if (value > 0) {
-        products[index].quantity = value;
+        cartStore.updateQuantity(productId, value);
       }
     };
 
-    // Function for updating total when checkbox changes
-    const updateTotal = () => {
-      // Reactive computation will handle updates automatically
-    };
-
-    // Function for completing the purchase
+    // Satın alma işlemini tamamlama
     const completePurchase = () => {
-      alert("Purchase completed! Total: " + total.value + "₺");
+      alert(`Alışveriş tamamlandı! Toplam: ${total.value}₺`);
     };
 
     return {
-      products,
+      cartStore, // Template içinde kullanmak için store'u expose et
       selectedProducts,
       total,
       increaseQuantity,
       decreaseQuantity,
       updateQuantity,
-      updateTotal,
       completePurchase,
     };
   },
 });
 </script>
+
+
+
+
 <style scoped>
 .cart {
   display: flex;
@@ -196,13 +198,5 @@ input[type="checkbox"]:checked {
   background-color: #FF6000; /* Turuncu arka plan */
   border-color: #FF6000; /* Turuncu kenarlık */
 }
-input[type="checkbox"]:checked::before {
-  content: '\2713'; /* Check işareti */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white; /* Check işareti rengi beyaz */
-  font-size: 14px;
-}
+
 </style>
