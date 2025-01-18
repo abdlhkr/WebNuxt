@@ -35,6 +35,7 @@
         <a href="#"><img src="public/parts/konum.png" alt=""></a>
 
         <!-- Profil İkonu ve Yönlendirme -->
+         <RouterLink to="/login" class="clickable-logo">
         <div>
           <img
             v-if="isLoggedIn"
@@ -49,6 +50,7 @@
             @click="handleLoginRedirect"
           />
         </div>
+      </RouterLink>
 
         <!-- Sepet Butonu -->
         <RouterLink to="/sepet" class="clickable-logo">

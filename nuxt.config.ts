@@ -21,6 +21,6 @@ export default defineNuxtConfig({
     shim: false, // TypeScript hata ayıklama desteğini açın
   },
   plugins: [
-    { src: 'plugins/firebaseAuth.js', mode: 'client', ssr: false }, // firebaseAuth plugin'ini burada tanımlıyoruz
+    { src: 'plugins/firebaseAuth.ts', mode: 'client', ssr: false }, // firebaseAuth plugin'ini burada tanımlıyoruz
   ],
 })

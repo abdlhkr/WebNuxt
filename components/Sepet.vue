@@ -197,6 +197,17 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: #FF6000; /* Turuncu arka plan */
   border-color: #FF6000; /* Turuncu kenarlık */
+  
 }
 
+input[type="checkbox"]:checked::after {
+  content: '✓'; /* Tik işareti */
+  color: white; /* Beyaz renk */
+  font-size: 14px; /* Tik boyutu */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+}
 </style>
