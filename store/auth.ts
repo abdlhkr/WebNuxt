@@ -1,5 +1,5 @@
-import { auth } from '/plugins/firebaseAuth';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 
 // State'in türlerini tanımlayın
 export interface RootState {
@@ -18,9 +18,10 @@ export const mutations = {
 
 export const actions = {
   initAuth({ commit }: { commit: (mutation: string, payload: any) => void }) {
+    const auth = getAuth(); // Firebase Auth örneğini burada alın
     onAuthStateChanged(auth, (user: User | null) => {
       if (user) {
-        commit('setUser', { email: user.email, uid: user.uid });
+        commit('setUser', { email: user.email || '', uid: user.uid });
       } else {
         commit('setUser', null);
       }

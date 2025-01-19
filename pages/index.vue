@@ -2,6 +2,7 @@
   <div>
     <navbar />
     <topMenu />
+      <img src="public/images/image copy 2.png" alt="" width="100%">
       <div class="container">
         <Slider />
         <img src="public/parts/image.png" alt="" style="height: 330px;">

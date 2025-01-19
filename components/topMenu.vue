@@ -22,7 +22,7 @@
               :key="subIndex"
             >
               <!-- Alt menü kontrolü -->
-              <v-menu v-if="subItem.subMenu" open-on-hover offset-x>
+              <v-menu v-if="typeof subItem === 'object' && subItem.subMenu" open-on-hover offset-x>
                 <template #activator="{ props }">
                   <v-list-item-title v-bind="props">{{ subItem.title }}</v-list-item-title>
                 </template>
@@ -45,11 +45,23 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
+// Alt menü türü
+interface SubMenu {
+  title: string;
+  subMenu?: (string | SubMenu)[];
+}
+
+// Menü öğesi türü
+interface MenuItem {
+  title: string;
+  subMenu?: (string | SubMenu)[];
+}
+
 // Menü öğeleri
-const menuItems = ref([
+const menuItems = ref<MenuItem[]>([
   {
     title: "Elektronik",
     subMenu: [
@@ -102,6 +114,7 @@ const menuItems = ref([
   },
 ]);
 </script>
+
 
 <style scoped>
 .menu-item {

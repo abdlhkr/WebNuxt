@@ -38,7 +38,7 @@
          <RouterLink to="/login" class="clickable-logo">
         <div>
           <img
-            v-if="isLoggedIn"
+            v-if="$isLoggedIn"
             src="public/parts/profil.png"
             alt="Profil"
             @click="handleLoginRedirect"
@@ -66,32 +66,31 @@
   </v-app>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useRouter, useNuxtApp } from '#app';
 
-const searchQuery = ref('');
-const isLoggedIn = ref(false);
+// Arama sorgusu
+const searchQuery = ref<string>('');
+
+// Nuxt App'ten global değişkenler alınır
+const { $isLoggedIn } = useNuxtApp();
+
+// Vue Router
 const router = useRouter();
 
-// Kullanıcının giriş durumu kontrol ediliyor
-onMounted(() => {
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    isLoggedIn.value = !!user; // Kullanıcı giriş yaptıysa true olur
-  });
-});
-
 // Yönlendirme fonksiyonu
-const handleLoginRedirect = () => {
-  if (isLoggedIn.value) {
-    router.push('/cikis'); // Giriş yaptıysa cikis.vue sayfasına yönlendirme
+const handleLoginRedirect = (): void => {
+  if ($isLoggedIn) {
+    router.push('/cikis'); // Kullanıcı giriş yaptıysa cikis sayfasına yönlendirme
   } else {
-    router.push('/login'); // Giriş yapmadıysa login.vue sayfasına yönlendirme
+    router.push('/login'); // Kullanıcı giriş yapmadıysa login sayfasına yönlendirme
   }
 };
 </script>
+
+
+
 
 <style scoped>
 .v-app-bar {

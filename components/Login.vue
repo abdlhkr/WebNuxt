@@ -40,15 +40,16 @@
 
 <script lang="ts">
 import { ref } from 'vue';
-import 'firebase/auth';
-import { RouterLink, useRouter } from 'vue-router';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Firebase Auth'u import et
+import { useRouter } from 'vue-router';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default {
   name: 'Login',
   setup() {
     const email = ref('');
     const password = ref('');
+    const message = ref(''); // Gösterilecek mesaj
+    const messageType = ref<'success' | 'error' | ''>(''); // Mesaj türü (success veya error)
     const router = useRouter(); // useRouter() ile yönlendirme işlemi
     const auth = getAuth(); // Firebase Auth'u alıyoruz
 
@@ -56,8 +57,29 @@ export default {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         console.log('Giriş başarılı:', userCredential.user);
+
+        // Başarı durumunda mesajı ve türünü güncelle
+        message.value = 'İşlem başarılı!';
+        messageType.value = 'success';
+
+        // 5 saniye sonra mesajı gizle
+        setTimeout(() => {
+          message.value = '';
+          messageType.value = '';
+        }, 5000);
+
         router.push('/'); // Giriş başarılı olduğunda yönlendirme yapılır
       } catch (error) {
+        // Hata durumunda mesajı ve türünü güncelle
+        message.value = 'İşlem başarısız. Lütfen tekrar deneyin.';
+        messageType.value = 'error';
+
+        // 5 saniye sonra mesajı gizle
+        setTimeout(() => {
+          message.value = '';
+          messageType.value = '';
+        }, 5000);
+
         console.error('Giriş hatası:', (error as Error).message);
       }
     };
@@ -69,6 +91,8 @@ export default {
     return {
       email,
       password,
+      message,
+      messageType,
       handleSubmit,
       navigateHome
     };
