@@ -53,80 +53,76 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../firebaseConfig'; // Firestore bağlantısı
 import { useCartStore } from '@/store/cart'; // Pinia Store'u kullanma
 
-const cartStore = useCartStore();  // Pinia Store'u kullanma
+const cartStore = useCartStore(); // Pinia Store'u kullanma
 
 // Ürün Tipini Tanımlıyoruz
 interface Product {
-  id: number;
+  id: string; // Firestore'dan gelen document ID
   name: string;
   price: number;
-  rating: number;  // Yıldız sayısı
+  rating: number; // Yıldız sayısı
   ratingCount: number; // Yorum sayısı
-  image: string;
-  hoverImage: string; // Hover için ikinci resim
+  image: string; // Ana resim URL'si
+  hoverImage: string; // Hover için resim URL'si
+  quantity: number; // Ürün miktarı
+  selected: boolean; // Ürün seçili mi
 }
 
-// Ürünler Dizisi
-const products = ref<Product[]>([
-  {
-    id: 1,
-    name: "Fenerbahçe Yüzüncü Yıl Forması",
-    price: 9999.9,
-    rating: 5,
-    ratingCount: 72,
-    image: "productImages/last_image.png",
-    hoverImage: "productImages/last_image_2.png", // İkinci resim
-  },
-  {
-    id: 2,
-    name: "Ipad Pro",
-    price: 21000,
-    rating: 4,
-    ratingCount: 100,
-    image: "productImages/product1_1.png",
-    hoverImage: "productImages/product3_2.png", // İkinci resim
-  },
-  {
-    id: 3,
-    name: "Samsung Tab 14",
-    price: 16000,
-    rating: 5,
-    ratingCount: 200,
-    image: "productImages/product2_1.png",
-    hoverImage: "productImages/product2_2.png", // İkinci resim
-  },
-  {
-    id: 4,
-    name: "Ipad Air",
-    price: 200.0,
-    rating: 3,
-    ratingCount: 50,
-    image: "productImages/product3_1.png",
-    hoverImage: "productImages/product3_2.png", // İkinci resim
-  },
-  {
-    id: 5,
-    name: "Logitech MX Keys",
-    price: 3811.0,
-    rating: 5,
-    ratingCount: 72,
-    image: "productImages/image.png",
-    hoverImage: "productImages/hower.png", // İkinci resim
-  },
-]);
+// Reaktif Veriler
+const products = ref<Product[]>([]);
+const hovered = ref<boolean[]>([]);
 
-// Hover Durumunu İzlemek İçin Değişken
-const hovered = ref<boolean[]>(Array(products.value.length).fill(false)); // Hover durumu her ürün için
+// Firestore'dan Ürünleri Çekme
+// Firestore'dan Ürünleri Çekme
+const fetchProducts = async () => {
+  const productCollection = collection(db, 'products'); // 'products' koleksiyonu
+  const productDocs = await getDocs(productCollection);
 
-// Sepete Ekleme Fonksiyonu
+// Firestore'dan gelen verileri products dizisine ekle
+// Initialize quantity to 1 instead of 0
+// Ensure valid price when fetching from Firestore
+products.value = productDocs.docs.map((doc) => {
+  const data = doc.data();
+  const price = Number(data.price) || 1; // Default to 1 if price is invalid
+  return {
+    id: doc.id,
+    name: data.name,
+    price: price,
+    rating: data.rating,
+    ratingCount: data.ratingCount,
+    image: data.image,
+    hoverImage: data.hoverImage,
+    quantity: 1,
+    selected: false,
+  } as Product;
+});
+
+
+
+
+  console.log('Products:', products.value); // Verileri kontrol et
+
+  // Hover durumu için başlangıç değerlerini ayarla
+  hovered.value = Array(products.value.length).fill(false);
+};
+
+
+// Vue Lifecycle Hook
+onMounted(() => {
+  fetchProducts();
+});
+
+// Sepete Ekle Fonksiyonu
 const addToCart = (product: Product) => {
-  // Add product to cart with initial quantity 1 and selected state (optional)
-  cartStore.addProduct({ ...product, quantity: 1, selected: true });
+  cartStore.addProduct(product);
 };
 </script>
+
 
 <style scoped>
 /* Kartı ve içeriklerini özelleştirmek için stil ekleyebilirsiniz */

@@ -9,41 +9,41 @@
           v-for="(product, index) in cartStore.items"
           :key="product.id"
         >
-          <!-- Checkbox (if you want to add selection logic) -->
+          <!-- Checkbox -->
           <input
             type="checkbox"
-            v-model="cartStore.items[index].selected"
+            v-model="product.selected"
             @change="cartStore.updateTotal"
           />
           <img :src="product.image" alt="product" />
           <span>{{ product.name }}</span>
           <div class="quantity-controls">
-            <button @click="decreaseQuantity(product.id)">-</button>
+            <button @click="decreaseQuantity(String(product.id))">-</button>
             <input
               type="number"
-              :value="product.quantity"
+              v-model="product.quantity"
               min="1"
-              @input="updateQuantity($event, product.id)"
             />
-            <button @click="increaseQuantity(product.id)">+</button>
+            <button @click="increaseQuantity(String(product.id))">+</button>
           </div>
           <span>{{ product.price * product.quantity }}₺</span>
         </div>
       </div>
 
       <!-- Summary -->
-      <div class="summary">
-        <h3>Toplam</h3>
-        <div
-          class="summary-item"
-          v-for="(product, index) in selectedProducts"
-          :key="index"
-        >
-          <span>{{ product.name }}</span>
-          <span>{{ product.price * product.quantity }}₺</span>
-        </div>
-        <p>Total: {{ total }}₺</p>
-        <div class="block">
+<!-- Summary Section -->
+    <div class="summary">
+      <h3>Toplam</h3>
+      <div
+        class="summary-item"
+        v-for="(product, index) in selectedProducts"
+        :key="index"
+      >
+        <span>{{ product.name }}</span>
+        <span>{{ product.price * product.quantity }}₺</span>
+      </div>
+      <p>Total: {{ total }}₺</p>
+      <div class="block">
         <button
           @click="completePurchase"
           class="btn btn-danger full-width-btn"
@@ -51,86 +51,77 @@
         >
           Alışverişi Tamamla
         </button>
-
-      </div>
       </div>
     </div>
-  </div>
+
+      </div>
+    </div>
 </template>
 
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useCartStore } from "../store/cartStore";
+
+export default defineComponent({
+  name: "Cart",
+  setup() {
+    const cartStore = useCartStore();
+    const router = useRouter();
+
+    const selectedProducts = computed(() =>
+      cartStore.items.filter((product) => product.selected)
+    );
+
+// Cart.vue
+const total = computed(() => {
+  return cartStore.updateTotal(); // Call the updateTotal method from the store
+});
 
 
-  <script lang="ts">
-  import { defineComponent, computed } from "vue";
-  import { useRouter } from "vue-router";
-  import { useCartStore } from "../store/cartStore";
+    const increaseQuantity = (productId: string) => {
+      const product = cartStore.items.find((item) => item.id === productId);
+      if (product) {
+        cartStore.updateQuantity(productId, product.quantity + 1);
+      }
+    };
 
-  export default defineComponent({
-    name: "Cart",
-    setup() {
-      const cartStore = useCartStore(); // Pinia store'u kullanma
-      const router = useRouter(); // Vue Router kullanımı
+    const decreaseQuantity = (productId: string) => {
+      const product = cartStore.items.find((item) => item.id === productId);
+      if (product && product.quantity > 1) {
+        cartStore.updateQuantity(productId, product.quantity - 1);
+      }
+    };
 
-      // Seçilen ürünlerin computed property olarak hesaplanması
-      const selectedProducts = computed(() =>
-        cartStore.items.filter((product) => product.selected)
-      );
+    const updateQuantity = (event: Event, productId: string) => {
+      const value = (event.target as HTMLInputElement).valueAsNumber;
+      if (value > 0) {
+        cartStore.updateQuantity(productId, value);
+      }
+    };
 
-      // Toplam fiyatın computed property olarak hesaplanması
-      const total = computed(() =>
-        selectedProducts.value.reduce(
-          (sum, product) => sum + product.price * product.quantity,
-          0
-        )
-      );
+    const completePurchase = () => {
+      alert(`Alışveriş tamamlandı! Toplam: ${total.value}₺`);
+    };
 
-      // Miktar artırma fonksiyonu
-      const increaseQuantity = (productId: number) => {
-        const product = cartStore.items.find((item) => item.id === productId);
-        if (product) {
-          cartStore.updateQuantity(productId, product.quantity + 1);
-        }
-      };
+    const navigateHome = () => {
+      router.push('/');
+    };
 
-      // Miktar azaltma fonksiyonu
-      const decreaseQuantity = (productId: number) => {
-        const product = cartStore.items.find((item) => item.id === productId);
-        if (product && product.quantity > 1) {
-          cartStore.updateQuantity(productId, product.quantity - 1);
-        }
-      };
+    return {
+      cartStore,
+      selectedProducts,
+      total,
+      increaseQuantity,
+      decreaseQuantity,
+      updateQuantity,
+      completePurchase,
+      navigateHome,
+    };
+  },
+});
+</script>
 
-      // Miktarı manuel olarak güncelleme
-      const updateQuantity = (event: Event, productId: number) => {
-        const value = (event.target as HTMLInputElement).valueAsNumber;
-        if (value > 0) {
-          cartStore.updateQuantity(productId, value);
-        }
-      };
-
-      // Satın alma işlemini tamamlama
-      const completePurchase = () => {
-        alert(`Alışveriş tamamlandı! Toplam: ${total.value}₺`);
-      };
-
-      // Ana sayfaya yönlendirme
-      const navigateHome = () => {
-        router.push('/'); // Ana sayfaya yönlendir
-      };
-
-      return {
-        cartStore, // Template içinde kullanmak için store'u expose et
-        selectedProducts,
-        total,
-        increaseQuantity,
-        decreaseQuantity,
-        updateQuantity,
-        completePurchase,
-        navigateHome, // Ana sayfaya dön fonksiyonunu expose et
-      };
-    },
-  });
-  </script>
 
 
 
